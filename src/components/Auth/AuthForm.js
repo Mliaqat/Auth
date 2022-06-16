@@ -1,12 +1,14 @@
-import { useState ,useRef} from 'react';
-
+import { useState ,useRef, useContext} from 'react';
+import { AuthContex } from '../../Store/Contex';
 import classes from './AuthForm.module.css';
+
+
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const email =useRef();
   const password=useRef();
-
+const contex=useContext(AuthContex)
 
   const switchAuthModeHandler = () => {
     setIsLogin((prevState) => !prevState);
@@ -60,7 +62,7 @@ const AuthForm = () => {
       }
     })
         .then((data)=>{
-          console.log(data)
+         contex.login(data.idToken )
         })
         .catch((err)=>{
           alert(err.message)
